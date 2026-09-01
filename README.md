@@ -312,15 +312,3 @@ where the ball is going, which is a different problem from the one solved here.
 | `src/viewer.py` | watching, during training or afterwards |
 | `train.py` / `play.py` / `watch.py` | entry points |
 | `reports/negative_results/` | why the previous game was abandoned |
-
-## Before this
-
-This started as an asymmetric game — a turret shooting, a player dodging — and a
-lot of work went into the learner before anyone asked whether the game rewarded
-the thing being trained for. It did not: the turret's best strategy was to herd
-the player into a wall, which needs no perception at all, so no amount of
-training could produce an opponent that *read* you.
-
-`reports/negative_results/` has the measurements and the run logs. It is worth a
-look before changing this game's mechanics, because the same trap is easy to
-walk into twice.
