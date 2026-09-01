@@ -79,7 +79,7 @@ against its own past selves meaningful.
 
 ```bash
 python train.py                  # 3M steps by default
-python train.py --fresh          # start over
+python train.py --fresh          # start over — DELETES every checkpoint
 python train.py --resume         # continue from the latest checkpoint
 python train.py --watch          # open a window and watch it play as it learns
 python train.py --watch --watch-every 10000
@@ -96,7 +96,35 @@ of its training stays against the fixed opponents (default 0.3).
 
 `--watch` pauses every `--watch-every` steps to play one full point with the
 policy exactly as it stands, and shows a running history of its strength beside
-it. `ESC` closes the window; training continues.
+it. `ESC` closes the window; training continues. It does not change the outcome:
+the viewer draws with its own RNG and only replays the current policy.
+
+**`--fresh` is destructive.** It runs `rmtree` on `models/agent` and removes the
+registry. Every tier you can currently play is gone, with no undo and nothing in
+git. Copy them first if you want them back:
+
+```bash
+cp -r models models_backup
+```
+
+### The full run
+
+One command, from nothing to the strongest agent this repo has produced:
+
+```bash
+python train.py --fresh --watch --steps 12000000 --scripted-rate 0.5 --gamma 0.999
+```
+
+About 40 minutes on a 14-core Apple Silicon machine. Drop `--watch` and it runs
+appreciably faster, since it stops to play a point every 50,000 steps.
+
+Training is deterministic: two runs at the same `--seed` produce byte-identical
+curves and bit-identical weights, so this is repeatable. It will **not** be a
+bit-exact reproduction of the shipped checkpoints, though — those came from
+three chained runs, the first two at `gamma 0.995`, using a trainer that has
+since changed (it used to halt once it had collected all six tier names). The
+command above is the cleaner experiment: the long credit horizon applies from
+the first step instead of arriving 4.7M steps in.
 
 ## Measuring strength
 
