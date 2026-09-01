@@ -1,0 +1,45 @@
+building a difficulty ladder: one turret, up to 4,000,000 steps.
+saving a checkpoint every 0.10 of skill gained (measuring every 50,000 steps)
+
+       50,004 steps   hits/episode 7.45   difficulty 0.00
+    skill 0.00  @ 50,004 steps  ->  turret_gen_0001  [Rookie]
+      100,008 steps   hits/episode 9.95   difficulty 0.00
+      150,000 steps   hits/episode 13.00   difficulty 0.00
+      200,004 steps   hits/episode 14.98   difficulty 0.00
+      250,008 steps   hits/episode 16.10   difficulty 0.00
+      300,000 steps   hits/episode 16.83   difficulty 0.00
+      350,004 steps   hits/episode 17.26   difficulty 0.00
+      400,008 steps   hits/episode 17.31   difficulty 0.05
+      450,000 steps   hits/episode 17.19   difficulty 0.09
+      500,004 steps   hits/episode 16.77   difficulty 0.12
+      550,008 steps   hits/episode 15.97   difficulty 0.16
+      600,000 steps   hits/episode 15.22   difficulty 0.21
+      650,004 steps   hits/episode 14.53   difficulty 0.23
+      700,008 steps   hits/episode 13.21   difficulty 0.28
+      750,000 steps   hits/episode 12.39   difficulty 0.33
+      800,004 steps   hits/episode 11.56   difficulty 0.35
+      850,008 steps   hits/episode 10.65   difficulty 0.40
+      900,000 steps   hits/episode 9.69   difficulty 0.45
+      950,004 steps   hits/episode 8.37   difficulty 0.47
+    1,000,008 steps   hits/episode 7.61   difficulty 0.52
+    1,050,000 steps   hits/episode 6.99   difficulty 0.56
+    1,100,004 steps   hits/episode 6.21   difficulty 0.59
+    1,150,008 steps   hits/episode 5.62   difficulty 0.63
+    1,200,000 steps   hits/episode 4.91   difficulty 0.68
+    1,250,004 steps   hits/episode 4.33   difficulty 0.65
+    1,300,008 steps   hits/episode 4.12   difficulty 0.73
+    1,350,000 steps   hits/episode 4.15   difficulty 0.60
+    1,400,004 steps   hits/episode 3.92   difficulty 0.73
+    1,450,008 steps   hits/episode 4.12   difficulty 0.68
+    1,500,000 steps   hits/episode 4.21   difficulty 0.66
+    1,550,004 steps   hits/episode 4.30   difficulty 0.56
+    1,600,008 steps   hits/episode 4.25   difficulty 0.71
+    1,650,000 steps   hits/episode 4.04   difficulty 0.82
+    1,700,004 steps   hits/episode 4.46   difficulty 0.55
+    1,750,008 steps   hits/episode 4.23   difficulty 0.77
+    1,800,000 steps   hits/episode 3.97   difficulty 0.68
+    1,850,004 steps   hits/episode 4.22   difficulty 0.60
+    1,900,008 steps   hits/episode 4.06   difficulty 0.69
+    1,950,000 steps   hits/episode 4.05   difficulty 0.70
+    2,000,004 steps   hits/episode 4.30   difficulty 0.56
+    2,050,008 steps   hits/episode 4.48   difficulty 0.66

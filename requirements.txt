@@ -1,0 +1,4 @@
+pygame
+numpy
+gymnasium
+stable-baselines3    # pulls in torch

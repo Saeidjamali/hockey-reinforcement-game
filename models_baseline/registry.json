@@ -1,0 +1,88 @@
+{
+  "agent": [
+    {
+      "id": "agent_gen_0001",
+      "generation": 1,
+      "path": "models/agent/agent_gen_0001.zip",
+      "steps": 50008,
+      "created": "2026-09-01T13:51:32+00:00",
+      "metrics": {
+        "win_rate": 0.1339,
+        "worst": 0.0,
+        "per_opponent": {
+          "sitter": 0.5,
+          "chaser_slow": 0.312,
+          "chaser_lagged": 0.062,
+          "chaser": 0.0,
+          "predictor_sloppy": 0.062,
+          "predictor_ok": 0.0,
+          "predictor": 0.0
+        }
+      },
+      "tier": "Rookie"
+    },
+    {
+      "id": "agent_gen_0002",
+      "generation": 2,
+      "path": "models/agent/agent_gen_0002.zip",
+      "steps": 200032,
+      "created": "2026-09-01T13:51:56+00:00",
+      "metrics": {
+        "win_rate": 0.2589,
+        "worst": 0.0,
+        "per_opponent": {
+          "sitter": 0.875,
+          "chaser_slow": 0.312,
+          "chaser_lagged": 0.125,
+          "chaser": 0.438,
+          "predictor_sloppy": 0.062,
+          "predictor_ok": 0.0,
+          "predictor": 0.0
+        }
+      },
+      "tier": "Amateur"
+    },
+    {
+      "id": "agent_gen_0003",
+      "generation": 3,
+      "path": "models/agent/agent_gen_0003.zip",
+      "steps": 300048,
+      "created": "2026-09-01T13:52:14+00:00",
+      "metrics": {
+        "win_rate": 0.4643,
+        "worst": 0.0625,
+        "per_opponent": {
+          "sitter": 1.0,
+          "chaser_slow": 0.625,
+          "chaser_lagged": 0.688,
+          "chaser": 0.688,
+          "predictor_sloppy": 0.062,
+          "predictor_ok": 0.125,
+          "predictor": 0.062
+        }
+      },
+      "tier": "Contender"
+    },
+    {
+      "id": "agent_gen_0004",
+      "generation": 4,
+      "path": "models/agent/agent_gen_0004.zip",
+      "steps": 800128,
+      "created": "2026-09-01T13:54:17+00:00",
+      "metrics": {
+        "win_rate": 0.5536,
+        "worst": 0.0625,
+        "per_opponent": {
+          "sitter": 1.0,
+          "chaser_slow": 0.75,
+          "chaser_lagged": 0.875,
+          "chaser": 0.75,
+          "predictor_sloppy": 0.125,
+          "predictor_ok": 0.312,
+          "predictor": 0.062
+        }
+      },
+      "tier": "Pro"
+    }
+  ]
+}

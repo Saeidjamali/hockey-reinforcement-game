@@ -1,0 +1,34 @@
+baseline (naive extrapolation turret): suite hit rate 0.279
+training 10 generations on 12 envs
+
+── generation 1/10 ──────────────────────────────────
+  turret phase — 300,000 steps vs scripted only
+       37,500 steps   hit rate 0.731
+       75,000 steps   hit rate 0.838
+      112,500 steps   hit rate 0.884
+      150,000 steps   hit rate 0.900
+      187,500 steps   hit rate 0.921
+      225,000 steps   hit rate 0.919
+      262,500 steps   hit rate 0.928
+      300,000 steps   hit rate 0.925
+  saved turret_gen_0001  strength 0.918  (suite 0.936  vs-reader 0.900  vs-league nan)  [Nightmare]  (44s)
+  dodger phase — 250,000 steps vs 1 league + scripted
+       31,260 steps   hits conceded 0.911
+       62,508 steps   hits conceded 0.924
+       93,756 steps   hits conceded 0.912
+      125,004 steps   hits conceded 0.821
+      156,252 steps   hits conceded 0.730
+      187,500 steps   hits conceded 0.676
+      218,760 steps   hits conceded 0.629
+      250,008 steps   hits conceded 0.587
+  saved dodger_gen_0001  concedes 0.433  (19s)
+
+── generation 2/10 ──────────────────────────────────
+  turret phase — 300,000 steps vs 1 league + scripted
+      337,500 steps   hit rate 0.695
+      375,000 steps   hit rate 0.829
+      412,500 steps   hit rate 0.873
+      450,000 steps   hit rate 0.901
+      487,500 steps   hit rate 0.903
+      525,000 steps   hit rate 0.918
+      562,500 steps   hit rate 0.930

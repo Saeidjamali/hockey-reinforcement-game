@@ -1,0 +1,109 @@
+{
+  "agent": [
+    {
+      "id": "agent_gen_0001",
+      "generation": 1,
+      "path": "models/agent/agent_gen_0001.zip",
+      "steps": 10008,
+      "created": "2026-09-01T15:01:48+00:00",
+      "metrics": {
+        "win_rate": 0.125,
+        "worst": 0.0,
+        "per_opponent": {
+          "sitter": 0.5,
+          "chaser_slow": 0.125,
+          "chaser_lagged": 0.0,
+          "chaser": 0.0,
+          "predictor_sloppy": 0.208,
+          "predictor_ok": 0.042,
+          "predictor": 0.0
+        }
+      },
+      "tier": "Rookie"
+    },
+    {
+      "id": "agent_gen_0002",
+      "generation": 2,
+      "path": "models/agent/agent_gen_0002.zip",
+      "steps": 250056,
+      "created": "2026-09-01T15:02:24+00:00",
+      "metrics": {
+        "win_rate": 0.256,
+        "worst": 0.0,
+        "per_opponent": {
+          "sitter": 0.792,
+          "chaser_slow": 0.375,
+          "chaser_lagged": 0.125,
+          "chaser": 0.083,
+          "predictor_sloppy": 0.375,
+          "predictor_ok": 0.042,
+          "predictor": 0.0
+        }
+      },
+      "tier": "Amateur"
+    },
+    {
+      "id": "agent_gen_0003",
+      "generation": 3,
+      "path": "models/agent/agent_gen_0003.zip",
+      "steps": 330072,
+      "created": "2026-09-01T15:02:40+00:00",
+      "metrics": {
+        "win_rate": 0.4345,
+        "worst": 0.0,
+        "per_opponent": {
+          "sitter": 1.0,
+          "chaser_slow": 0.583,
+          "chaser_lagged": 0.292,
+          "chaser": 0.458,
+          "predictor_sloppy": 0.5,
+          "predictor_ok": 0.208,
+          "predictor": 0.0
+        }
+      },
+      "tier": "Contender"
+    },
+    {
+      "id": "agent_gen_0004",
+      "generation": 4,
+      "path": "models/agent/agent_gen_0004.zip",
+      "steps": 610128,
+      "created": "2026-09-01T15:03:37+00:00",
+      "metrics": {
+        "win_rate": 0.5595,
+        "worst": 0.1667,
+        "per_opponent": {
+          "sitter": 0.958,
+          "chaser_slow": 0.583,
+          "chaser_lagged": 0.708,
+          "chaser": 0.583,
+          "predictor_sloppy": 0.708,
+          "predictor_ok": 0.208,
+          "predictor": 0.167
+        }
+      },
+      "tier": "Pro"
+    },
+    {
+      "id": "agent_gen_0005",
+      "generation": 5,
+      "path": "models/agent/agent_gen_0005.zip",
+      "steps": 1090224,
+      "created": "2026-09-01T15:05:25+00:00",
+      "metrics": {
+        "win_rate": 0.6429,
+        "worst": 0.2917,
+        "per_opponent": {
+          "sitter": 0.958,
+          "chaser_slow": 0.875,
+          "chaser_lagged": 0.75,
+          "chaser": 0.667,
+          "predictor_sloppy": 0.667,
+          "predictor_ok": 0.292,
+          "predictor": 0.292
+        }
+      },
+      "tier": "Champion"
+    }
+  ]
+}

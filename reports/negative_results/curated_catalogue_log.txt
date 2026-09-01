@@ -1,0 +1,29 @@
+building a difficulty ladder: one turret, up to 4,000,000 steps.
+saving a checkpoint every 0.10 of skill gained (measuring every 50,000 steps)
+
+       50,004 steps   hits/episode 0.53
+    skill 0.00  @ 50,004 steps  ->  turret_gen_0001  [Rookie]
+      100,008 steps   hits/episode 0.69   skill 0.004
+      150,000 steps   hits/episode 1.07   skill 0.008
+      200,004 steps   hits/episode 2.66   skill 0.092
+    skill 0.17  @200,016 steps  ->  turret_gen_0002  [Rookie]
+      250,008 steps   hits/episode 3.41   skill 0.174
+      300,000 steps   hits/episode 3.44   skill 0.160
+      350,004 steps   hits/episode 4.12   skill 0.162
+      400,008 steps   hits/episode 4.00   skill 0.170
+      450,000 steps   hits/episode 3.86   skill 0.195
+      500,004 steps   hits/episode 3.88   skill 0.179
+      550,008 steps   hits/episode 4.08   skill 0.194
+    skill 0.20  @550,044 steps  ->  turret_gen_0003  [Trainee]
+      600,000 steps   hits/episode 4.78   skill 0.201
+      650,004 steps   hits/episode 4.29   skill 0.200
+      700,008 steps   hits/episode 4.31   skill 0.196
+      750,000 steps   hits/episode 4.43   skill 0.195
+      800,004 steps   hits/episode 4.20   skill 0.185
+      850,008 steps   hits/episode 4.17   skill 0.198
+      900,000 steps   hits/episode 4.70   skill 0.221
+      950,004 steps   hits/episode 4.29   skill 0.204
+    1,000,008 steps   hits/episode 4.59   skill 0.194
+    1,050,000 steps   hits/episode 4.38   skill 0.195
+    1,100,004 steps   hits/episode 4.88   skill 0.208
+    1,150,008 steps   hits/episode 4.53   skill 0.217
