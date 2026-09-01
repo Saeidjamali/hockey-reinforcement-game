@@ -46,8 +46,8 @@ class Game:
                 break
 
             # Both paddles may move during the countdown, so you can set up —
-            # only the ball is held. It sits visible at the centre rather than
-            # arriving out of nowhere.
+            # only the ball is held. It sits visible at the serving paddle
+            # rather than arriving out of nowhere.
             if self.countdown > 0 or self.hold > 0:
                 if self.countdown > 0:
                     self.countdown -= 1

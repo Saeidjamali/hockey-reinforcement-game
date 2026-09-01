@@ -6,7 +6,7 @@ opponents, then against its own past selves.
 
 Every difficulty level you can play is a genuine snapshot of that agent partway
 through learning. Rookie is not Pro with its aim turned down; it is the same
-network, 50,000 steps in, when it was actually bad.
+network, 10,000 steps in, when it was actually bad.
 
 ```bash
 pip install -r requirements.txt
@@ -39,8 +39,8 @@ off the top and bottom; a point ends when it gets past someone.
 
 **Serving:** the winner of a point serves the next one, so the ball travels
 away from them and toward whoever just conceded. A three-second countdown opens
-the match; between points there is a short beat with the ball held at the centre,
-so a serve is never sprung on you.
+the match; between points there is a short beat with the ball held at the
+server's paddle, so you see it start its journey rather than appear mid-court.
 
 The one rule that matters: **the return angle is set by where on your paddle the
 ball strikes.** Hitting near the top edge sends it up, near the bottom sends it
@@ -66,9 +66,10 @@ position and velocity, how fast the ball is going, roughly how long until it
 arrives, the rally length, and the last four contact points the opponent used.
 It has three actions: up, hold, down.
 
-Reward is +1 for winning a point and −1 for losing, plus a small bonus for
-returning the ball at all — that last part only so a policy that has never
-touched the ball has something to climb.
+Reward is +1 for winning a point and −1 for losing. Nothing else. There is no
+bonus for returning the ball, because that would be telling it the objective —
+it has to discover that bouncing the ball back is worth doing. (A
+`--return-bonus` flag exists to reintroduce one, and defaults to off.)
 
 Observations are **mirrored**, so a player always sees itself in the same place.
 That is what lets one policy play either side, which is what makes training
@@ -83,12 +84,14 @@ python train.py --resume         # continue from the latest checkpoint
 python train.py --watch          # open a window and watch it play as it learns
 python train.py --watch --watch-every 10000
 python train.py --steps 6000000 --scripted-rate 0.5
+python train.py --gamma 0.999    # credit horizon; see "the discount" below
 python train.py --list           # what has been trained
 ```
 
-It begins against a fixed ladder of scripted opponents. Each time it reaches a
-new difficulty tier, that checkpoint is saved *and joins the opponent pool*, so
-from then on it also plays versions of itself. `--scripted-rate` sets how much
+It begins against a fixed ladder of scripted opponents. A checkpoint is saved
+whenever it reaches a new tier *or* simply plays better than anything saved so
+far, and each one *joins the opponent pool*, so from then on it also plays
+versions of itself. A run ends when its step budget does. `--scripted-rate` sets how much
 of its training stays against the fixed opponents (default 0.3).
 
 `--watch` pauses every `--watch-every` steps to play one full point with the
@@ -103,7 +106,7 @@ number is comparable across every checkpoint ever trained.
 Nobody can win every point on this ladder. A ball served at full speed can be
 reached from anywhere in the court before it arrives, so a perfect returner is
 unbeatable until a rally has run long enough for the ball to hit its speed cap.
-The honest reference is therefore not 1.00 but the **ceiling**: what a flawless
+The reference is therefore not 1.00 but the **ceiling**: what a flawless
 predictor scores playing as the agent against this same ladder.
 
 | reference point | win rate |
@@ -183,10 +186,10 @@ its time waiting on a pipe rather than computing — reserving cores for the OS
 cost about 15%. `--n-envs` therefore defaults to one worker per core. A 6M-step
 run takes about 15 minutes.
 
-## Results so far, honestly
+## Results so far
 
-A single 12M-step run, `--scripted-rate 0.5`, which stopped itself at 4.5M once
-every tier had been captured. Roughly 16 minutes on an M-series laptop.
+Three runs at `--scripted-rate 0.5`, about 40 minutes total on an M-series
+laptop: one from scratch, then two resumed — the third with `--gamma 0.999`.
 
 | tier | steps | win rate | of optimal | worst rung |
 |---|---:|---:|---:|---:|
@@ -196,10 +199,10 @@ every tier had been captured. Roughly 16 minutes on an M-series laptop.
 | Pro | 610k | 0.530 | 71% | 0.13 |
 | Champion | 1.09M | 0.638 | 85% | 0.19 |
 | Champion | 4.49M | 0.642 | 86% | 0.13 |
-| Champion | 8.61M | 0.703 | 94% | 0.20 |
+| Champion | 4.69M | 0.660 | 88% | 0.12 |
+| Champion | 8.61M | **0.685** | **92%** | 0.21 |
 
-The last row is a second run resumed with `--gamma 0.999`; the rows above it ran
-at 0.995.
+Only the last row ran at `gamma 0.999`; everything above it at 0.995.
 
 Every figure is re-scored over 300 points on seeds the agent was not selected
 on. That matters: the cheap 24-point probe that fires during training banked the
@@ -208,8 +211,13 @@ off the moment noise carries it over a line, so crossing a threshold is itself
 evidence of a lucky sample. Training now re-checks any crossing on more points
 and an unseen seed before believing it.
 
-So the honest result is **Champion, about 86% of optimal play** — not Unbeatable.
-The last 3.4M steps bought 0.004, so it is flat, not still climbing.
+So the result is **Champion, about 92% of optimal play**. Unbeatable starts at
+0.703 and it has not got there.
+
+Every number above is 300 points on seeds 1-3, and the protocol matters: this
+same checkpoint scores 0.685 on those seeds and 0.703 on seeds 21-23. About
+±0.01 of seed noise, which is enough to cross a tier line — so a figure quoted
+without its seeds is how you end up believing a checkpoint is better than it is.
 
 ### What was in the way
 
@@ -239,8 +247,9 @@ winning was discounted to **0.03** by the start of the rally. Anything the agent
 did early was worth almost nothing to the optimiser. `--gamma` now defaults to
 **0.999**, a 1000-frame horizon that covers a whole point.
 
-That last change moved it from 0.661 to 0.703. Worth being precise about *how*,
-because it was not the predicted mechanism:
+That last change moved it from 0.642 to 0.685, and the gain holds at about
++0.04 on either seed set. Worth being precise about *how*, because it was not
+the predicted mechanism:
 
 | | returns reachable balls | returns marginal balls | hits unreturnable shots |
 |---|---:|---:|---:|
@@ -264,6 +273,7 @@ where the ball is going, which is a different problem from the one solved here.
 
 | path | what it does |
 |---|---|
+| `src/config.py` | every game constant in one place |
 | `src/pong.py` | the simulation: physics, and what each side sees |
 | `src/env.py` | Gymnasium wrapper; one episode is one point |
 | `src/opponents.py` | scripted baselines, past selves, checkpoint loading |
