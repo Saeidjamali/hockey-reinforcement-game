@@ -7,17 +7,18 @@
       "steps": 10008,
       "created": "2026-09-01T15:01:48+00:00",
       "metrics": {
-        "win_rate": 0.125,
+        "win_rate": 0.1329,
         "worst": 0.0,
         "per_opponent": {
-          "sitter": 0.5,
-          "chaser_slow": 0.125,
-          "chaser_lagged": 0.0,
-          "chaser": 0.0,
-          "predictor_sloppy": 0.208,
-          "predictor_ok": 0.042,
+          "sitter": 0.513,
+          "chaser_slow": 0.127,
+          "chaser_lagged": 0.04,
+          "chaser": 0.03,
+          "predictor_sloppy": 0.2,
+          "predictor_ok": 0.02,
           "predictor": 0.0
-        }
+        },
+        "measured_on": "300 points, seeds 1-3"
       },
       "tier": "Rookie"
     },
@@ -28,17 +29,18 @@
       "steps": 250056,
       "created": "2026-09-01T15:02:24+00:00",
       "metrics": {
-        "win_rate": 0.256,
+        "win_rate": 0.2548,
         "worst": 0.0,
         "per_opponent": {
-          "sitter": 0.792,
-          "chaser_slow": 0.375,
-          "chaser_lagged": 0.125,
-          "chaser": 0.083,
-          "predictor_sloppy": 0.375,
-          "predictor_ok": 0.042,
+          "sitter": 0.817,
+          "chaser_slow": 0.333,
+          "chaser_lagged": 0.13,
+          "chaser": 0.097,
+          "predictor_sloppy": 0.38,
+          "predictor_ok": 0.027,
           "predictor": 0.0
-        }
+        },
+        "measured_on": "300 points, seeds 1-3"
       },
       "tier": "Amateur"
     },
@@ -49,17 +51,18 @@
       "steps": 330072,
       "created": "2026-09-01T15:02:40+00:00",
       "metrics": {
-        "win_rate": 0.4345,
-        "worst": 0.0,
+        "win_rate": 0.4295,
+        "worst": 0.01,
         "per_opponent": {
-          "sitter": 1.0,
-          "chaser_slow": 0.583,
-          "chaser_lagged": 0.292,
-          "chaser": 0.458,
-          "predictor_sloppy": 0.5,
-          "predictor_ok": 0.208,
-          "predictor": 0.0
-        }
+          "sitter": 0.93,
+          "chaser_slow": 0.577,
+          "chaser_lagged": 0.463,
+          "chaser": 0.413,
+          "predictor_sloppy": 0.537,
+          "predictor_ok": 0.077,
+          "predictor": 0.01
+        },
+        "measured_on": "300 points, seeds 1-3"
       },
       "tier": "Contender"
     },
@@ -70,17 +73,18 @@
       "steps": 610128,
       "created": "2026-09-01T15:03:37+00:00",
       "metrics": {
-        "win_rate": 0.5595,
-        "worst": 0.1667,
+        "win_rate": 0.5305,
+        "worst": 0.1333,
         "per_opponent": {
-          "sitter": 0.958,
-          "chaser_slow": 0.583,
-          "chaser_lagged": 0.708,
-          "chaser": 0.583,
-          "predictor_sloppy": 0.708,
-          "predictor_ok": 0.208,
-          "predictor": 0.167
-        }
+          "sitter": 0.967,
+          "chaser_slow": 0.657,
+          "chaser_lagged": 0.597,
+          "chaser": 0.58,
+          "predictor_sloppy": 0.61,
+          "predictor_ok": 0.133,
+          "predictor": 0.17
+        },
+        "measured_on": "300 points, seeds 1-3"
       },
       "tier": "Pro"
     },
@@ -91,16 +95,81 @@
       "steps": 1090224,
       "created": "2026-09-01T15:05:25+00:00",
       "metrics": {
-        "win_rate": 0.6429,
-        "worst": 0.2917,
+        "win_rate": 0.6376,
+        "worst": 0.1933,
+        "per_opponent": {
+          "sitter": 0.973,
+          "chaser_slow": 0.847,
+          "chaser_lagged": 0.763,
+          "chaser": 0.717,
+          "predictor_sloppy": 0.723,
+          "predictor_ok": 0.193,
+          "predictor": 0.247
+        },
+        "measured_on": "300 points, seeds 1-3"
+      },
+      "tier": "Champion"
+    },
+    {
+      "id": "agent_gen_0006",
+      "generation": 6,
+      "path": "models/agent/agent_gen_0006.zip",
+      "steps": 4490904,
+      "created": "2026-09-01T15:17:56+00:00",
+      "metrics": {
+        "win_rate": 0.6424,
+        "worst": 0.1333,
+        "per_opponent": {
+          "sitter": 0.993,
+          "chaser_slow": 0.9,
+          "chaser_lagged": 0.753,
+          "chaser": 0.777,
+          "predictor_sloppy": 0.743,
+          "predictor_ok": 0.197,
+          "predictor": 0.133
+        },
+        "measured_on": "300 points, seeds 1-3"
+      },
+      "tier": "Champion"
+    },
+    {
+      "id": "agent_gen_0007",
+      "generation": 7,
+      "path": "models/agent/agent_gen_0007.zip",
+      "steps": 4690956,
+      "created": "2026-09-01T15:45:04+00:00",
+      "metrics": {
+        "win_rate": 0.6726,
+        "worst": 0.1042,
+        "per_opponent": {
+          "sitter": 0.979,
+          "chaser_slow": 0.896,
+          "chaser_lagged": 0.896,
+          "chaser": 0.781,
+          "predictor_sloppy": 0.792,
+          "predictor_ok": 0.26,
+          "predictor": 0.104
+        }
+      },
+      "tier": "Champion"
+    },
+    {
+      "id": "agent_gen_0008",
+      "generation": 8,
+      "path": "models/agent/agent_gen_0008.zip",
+      "steps": 8611752,
+      "created": "2026-09-01T16:24:33+00:00",
+      "metrics": {
+        "win_rate": 0.6949,
+        "worst": 0.1979,
         "per_opponent": {
           "sitter": 0.958,
-          "chaser_slow": 0.875,
-          "chaser_lagged": 0.75,
-          "chaser": 0.667,
-          "predictor_sloppy": 0.667,
-          "predictor_ok": 0.292,
-          "predictor": 0.292
+          "chaser_slow": 0.948,
+          "chaser_lagged": 0.854,
+          "chaser": 0.833,
+          "predictor_sloppy": 0.833,
+          "predictor_ok": 0.24,
+          "predictor": 0.198
         }
       },
       "tier": "Champion"

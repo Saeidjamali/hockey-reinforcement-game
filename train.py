@@ -93,6 +93,9 @@ class Trainer(BaseCallback):
         self._next_probe = min(10_000, probe_every)
         self._next_report = report_every
         self.captured = {e["tier"] for e in registry.entries()}
+        self.best_rate = max((e["metrics"].get("win_rate", 0.0)
+                              for e in registry.entries()), default=0.0)
+        self.margin = 0.02        # ignore noise-sized "improvements"
         self.wins = []
         self.last_rate = None
         self.saved = []
@@ -131,23 +134,42 @@ class Trainer(BaseCallback):
         metrics = evaluate(LiveAgent(self.model), points=self.eval_points)
         self.last_rate = metrics["win_rate"]
         tier = tier_for(metrics["win_rate"])
-        if tier in self.captured:
+
+        # Two reasons to bank: a tier never seen before, or simply playing better
+        # than anything banked so far. A tier is only a label, and once all six
+        # were collected the run used to stop -- so it quit improving the moment
+        # it had a full set of names.
+        if tier in self.captured and metrics["win_rate"] <= self.best_rate + self.margin:
+            return True
+
+        # Winner's curse: the cheap probe fires the moment noise carries it over
+        # a threshold, so the crossing itself is evidence of a lucky sample. One
+        # run banked 0.708 (Unbeatable) that was really 0.642 (Champion) on fresh
+        # episodes. Confirm on more points and an unseen seed before believing it.
+        metrics = evaluate(LiveAgent(self.model), points=max(60, self.eval_points * 4),
+                           seed=self.num_timesteps % 100_000)
+        self.last_rate = metrics["win_rate"]
+        tier = tier_for(metrics["win_rate"])
+        if tier in self.captured and metrics["win_rate"] <= self.best_rate + self.margin:
             return True
 
         generation = self.registry.next_generation()
         path = self.registry.checkpoint_path(generation)
         self.model.save(path)
         entry = self.registry.add(path, generation, self.num_timesteps, metrics)
+        why = "reached" if tier not in self.captured else "improved"
         self.captured.add(tier)
+        self.best_rate = max(self.best_rate, metrics["win_rate"])
         self.saved.append(entry)
 
         # A new checkpoint joins the pool: from here it also plays its past self.
         self.training_env.env_method("add_checkpoint", path)
 
-        print(f"    {tier:<11} reached @{self.num_timesteps:>9,} steps  ->  {entry['id']}"
+        print(f"    {tier:<11} {why:<9}@{self.num_timesteps:>9,} steps  ->  {entry['id']}"
               f"   win rate {metrics['win_rate']:.3f}  worst {metrics['worst']:.3f}",
               flush=True)
-        return len(self.captured) < len(TIERS)
+        # Always keep going: the step budget ends a run, not a full set of labels.
+        return True
 
 
 def main():
@@ -163,6 +185,10 @@ def main():
                         "for hitting the ball back tells the agent the object "
                         "of the game instead of letting it discover it")
     p.add_argument("--ent-coef", type=float, default=0.01)
+    p.add_argument("--gamma", type=float, default=0.999,
+                   help="discount. A point lasts ~700 frames, so 0.995 (horizon "
+                        "200) discounts the winning reward to 0.03 by the start "
+                        "of the rally and the agent cannot learn to pre-position")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--watch", action="store_true", help="show it playing as it learns")
     p.add_argument("--watch-every", type=int, default=50_000)
@@ -204,12 +230,15 @@ def main():
     if latest:
         print(f"resuming from {latest['id']}")
         model = PPO.load(latest["path"], env=venv, device="cpu")
+        model.gamma = args.gamma        # load() restores the saved value
     else:
         model = PPO("MlpPolicy", venv, seed=args.seed, verbose=0, device="cpu",
                     policy_kwargs=dict(net_arch=[128, 128]),
                     learning_rate=3e-4, n_steps=256, batch_size=512, n_epochs=10,
-                    gamma=0.995, gae_lambda=0.95, clip_range=0.2,
+                    gamma=args.gamma, gae_lambda=0.95, clip_range=0.2,
                     ent_coef=args.ent_coef, vf_coef=0.5, max_grad_norm=0.5)
+    print(f"discount {model.gamma} -> credit reaches back "
+          f"{1 / (1 - model.gamma):,.0f} frames; a point lasts about 700")
 
     from src.evaluate import RandomAgent
     floor = evaluate(RandomAgent(np.random.default_rng(0)), points=12)["win_rate"]

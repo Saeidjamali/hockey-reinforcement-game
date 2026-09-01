@@ -185,22 +185,80 @@ run takes about 15 minutes.
 
 ## Results so far, honestly
 
-| tier | win rate | steps |
-|---|---:|---:|
-| Rookie | 0.125 | 50k |
-| Amateur | 0.250 | 200k |
-| Contender | 0.402 | 400k |
-| Pro | 0.580 | 2.1M |
+A single 12M-step run, `--scripted-rate 0.5`, which stopped itself at 4.5M once
+every tier had been captured. Roughly 16 minutes on an M-series laptop.
 
-It climbed from 0.10 to 0.58 and then stopped. Over the last 4M steps strength
-oscillated between 0.38 and 0.61 without trending, and it never reached Champion
-(0.70) or the perfect tracker's 0.84.
+| tier | steps | win rate | of optimal | worst rung |
+|---|---:|---:|---:|---:|
+| Rookie | 10k | 0.133 | 18% | 0.00 |
+| Amateur | 250k | 0.255 | 34% | 0.00 |
+| Contender | 330k | 0.429 | 57% | 0.01 |
+| Pro | 610k | 0.530 | 71% | 0.13 |
+| Champion | 1.09M | 0.638 | 85% | 0.19 |
+| Champion | 4.49M | 0.642 | 86% | 0.13 |
+| Champion | 8.61M | 0.703 | 94% | 0.20 |
 
-The reason is visible in the logs: its win rate *against its own training pool*
-stayed near 0.65 the entire time. Self-play keeps handing it opponents of its
-own strength, so it never had to solve the hard scripted opponents — 70% of its
-episodes were against past selves. The untested fix is `--scripted-rate 0.6`,
-which makes the fixed ladder the majority of training rather than the minority.
+The last row is a second run resumed with `--gamma 0.999`; the rows above it ran
+at 0.995.
+
+Every figure is re-scored over 300 points on seeds the agent was not selected
+on. That matters: the cheap 24-point probe that fires during training banked the
+last checkpoint at 0.708 — Unbeatable — and it was really 0.642. The probe goes
+off the moment noise carries it over a line, so crossing a threshold is itself
+evidence of a lucky sample. Training now re-checks any crossing on more points
+and an unseen seed before believing it.
+
+So the honest result is **Champion, about 86% of optimal play** — not Unbeatable.
+The last 3.4M steps bought 0.004, so it is flat, not still climbing.
+
+### What was in the way
+
+Four things, found by measurement rather than guesswork. Three were in the
+measuring stick; the fourth was the learner.
+
+**The ladder had no top.** `Predictor(error=...)` re-drew its aiming error every
+frame, so the noise averaged out over the ~80 frames of ball flight — a 25px
+error landed 3.4px from the true arrival, well inside a 50px paddle. All three
+"sloppy" predictors were secretly the perfect one. The agent scored 0.00-0.03 on
+all three, so improving against them earned nothing and there was no gradient to
+climb. Fixed: the misjudgement is drawn once per incoming ball.
+
+**Champion was above the ceiling.** Thresholds were raw win rates set without
+checking what the game could produce. A perfect returner scored **0.674** against
+the broken ladder while Champion was set at 0.70 — unreachable by anything. Tiers
+are now fractions of the measured ceiling.
+
+**Training stopped when it ran out of names.** The callback returned
+`len(captured) < len(TIERS)`, so a run halted the moment it had collected six
+labels — one stopped at 4.5M of a 12M budget. It now runs the full budget and
+banks a checkpoint whenever it plays better than anything banked so far.
+
+**The discount was shorter than a point.** The real one. A point lasts a median
+of **708 frames**, but `gamma=0.995` reaches back only 200 — the reward for
+winning was discounted to **0.03** by the start of the rally. Anything the agent
+did early was worth almost nothing to the optimiser. `--gamma` now defaults to
+**0.999**, a 1000-frame horizon that covers a whole point.
+
+That last change moved it from 0.661 to 0.703. Worth being precise about *how*,
+because it was not the predicted mechanism:
+
+| | returns reachable balls | returns marginal balls | hits unreturnable shots |
+|---|---:|---:|---:|
+| gamma 0.995 | 94.7% | 10.2% | 2.0% |
+| gamma 0.999 | 95.4% | 7.8% | 3.3% |
+| perfect returner | 100.0% | 28.5% | 3.8% |
+
+The long horizon taught it **offence**, not defence. Placing a shot pays off a
+full exchange later, which a 200-frame horizon cannot see. Its shot placement is
+now near optimal. Its defence on balls at the edge of reach is not — 7.8%
+against an achievable 28.5% — and that is the remaining gap.
+
+### Where it is still beatable
+
+It drops about 5% of balls it could physically reach, and it lunges rather than
+pre-positions. Hit wide, to the corner furthest from where it is standing, and
+it will not get there. Closing that means teaching it to move before it knows
+where the ball is going, which is a different problem from the one solved here.
 
 ## Layout
 

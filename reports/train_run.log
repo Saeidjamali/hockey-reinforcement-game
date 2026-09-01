@@ -159,3 +159,45 @@ strength is measured every 40,000 steps
     3,651,168 steps   training win rate 0.66   strength 0.566   next: Unbeatable at 0.70
     3,676,176 steps   training win rate 0.65   strength 0.566   next: Unbeatable at 0.70
     3,701,184 steps   training win rate 0.66   strength 0.601   next: Unbeatable at 0.70
+    3,726,192 steps   training win rate 0.69   strength 0.601   next: Unbeatable at 0.70
+    3,751,200 steps   training win rate 0.69   strength 0.607   next: Unbeatable at 0.70
+    3,776,208 steps   training win rate 0.68   strength 0.566   next: Unbeatable at 0.70
+    3,801,216 steps   training win rate 0.66   strength 0.566   next: Unbeatable at 0.70
+    3,826,224 steps   training win rate 0.65   strength 0.595   next: Unbeatable at 0.70
+    3,851,232 steps   training win rate 0.65   strength 0.637   next: Unbeatable at 0.70
+    3,876,240 steps   training win rate 0.63   strength 0.637   next: Unbeatable at 0.70
+    3,901,248 steps   training win rate 0.60   strength 0.559   next: Unbeatable at 0.70
+    3,926,256 steps   training win rate 0.61   strength 0.559   next: Unbeatable at 0.70
+    3,951,264 steps   training win rate 0.61   strength 0.655   next: Unbeatable at 0.70
+    3,976,272 steps   training win rate 0.62   strength 0.524   next: Unbeatable at 0.70
+    4,001,280 steps   training win rate 0.61   strength 0.524   next: Unbeatable at 0.70
+    4,026,288 steps   training win rate 0.62   strength 0.625   next: Unbeatable at 0.70
+    4,051,296 steps   training win rate 0.64   strength 0.613   next: Unbeatable at 0.70
+    4,076,304 steps   training win rate 0.65   strength 0.613   next: Unbeatable at 0.70
+    4,101,312 steps   training win rate 0.67   strength 0.601   next: Unbeatable at 0.70
+    4,126,320 steps   training win rate 0.67   strength 0.601   next: Unbeatable at 0.70
+    4,151,328 steps   training win rate 0.68   strength 0.607   next: Unbeatable at 0.70
+    4,176,336 steps   training win rate 0.70   strength 0.559   next: Unbeatable at 0.70
+    4,201,344 steps   training win rate 0.70   strength 0.559   next: Unbeatable at 0.70
+    4,226,352 steps   training win rate 0.69   strength 0.566   next: Unbeatable at 0.70
+    4,251,360 steps   training win rate 0.68   strength 0.631   next: Unbeatable at 0.70
+    4,276,368 steps   training win rate 0.69   strength 0.631   next: Unbeatable at 0.70
+    4,301,376 steps   training win rate 0.69   strength 0.566   next: Unbeatable at 0.70
+    4,326,384 steps   training win rate 0.69   strength 0.566   next: Unbeatable at 0.70
+    4,351,392 steps   training win rate 0.67   strength 0.595   next: Unbeatable at 0.70
+    4,376,400 steps   training win rate 0.66   strength 0.619   next: Unbeatable at 0.70
+    4,401,408 steps   training win rate 0.67   strength 0.619   next: Unbeatable at 0.70
+    4,426,416 steps   training win rate 0.70   strength 0.696   next: Unbeatable at 0.70
+    4,451,424 steps   training win rate 0.70   strength 0.643   next: Unbeatable at 0.70
+    4,476,432 steps   training win rate 0.69   strength 0.643   next: Unbeatable at 0.70
+    Unbeatable  reached @4,490,904 steps  ->  agent_gen_0006   win rate 0.708  worst 0.250
+
+done in 972s
+  agent_gen_0001     Rookie      win rate 0.125
+  agent_gen_0002     Amateur     win rate 0.256
+  agent_gen_0003     Contender   win rate 0.434
+  agent_gen_0004     Pro         win rate 0.559
+  agent_gen_0005     Champion    win rate 0.643
+  agent_gen_0006     Unbeatable  win rate 0.708
+
+play it:  python play.py --model agent_gen_0006
